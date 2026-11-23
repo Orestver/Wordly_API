@@ -20,6 +20,14 @@ class UserResponse(BaseModel):
     def is_admin(self) -> bool:
         return self.role == "admin"
 
+class UserOut(BaseModel):
+    user_id: int
+    username: str
+    role: str
+    is_active: bool
+
+    model_config = {"from_attributes": True}
+
 class UserUpdate(BaseModel):
     username: str | None = Field(None, max_length=50, description="Новий юзернейм")
     password: str | None = Field(None, min_length=6, max_length=255, description="Новий пароль")

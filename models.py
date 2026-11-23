@@ -15,7 +15,8 @@ class User(Base):
     created_at = Column(TIMESTAMP, server_default=text("CURRENT_TIMESTAMP"))
 
     # Зв'язок: один користувач має багато словників
-    dictionaries = relationship("Dictionary", back_populates="owner", cascade="all, delete")
+    dictionaries = relationship("Dictionary", back_populates="owner",
+                            cascade="all, delete", passive_deletes=True)
 
 class Dictionary(Base):
     __tablename__ = "dictionaries"
@@ -28,7 +29,8 @@ class Dictionary(Base):
 
     # Зв'язок із користувачем та словами
     owner = relationship("User", back_populates="dictionaries")
-    words = relationship("Word", back_populates="dictionary", cascade="all, delete")
+    words = relationship("Word", back_populates="dictionary",
+                     cascade="all, delete", passive_deletes=True)
 
 class Word(Base):
     __tablename__ = "words"
